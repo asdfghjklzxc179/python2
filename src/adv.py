@@ -48,22 +48,17 @@ while(player.name):
 # * Prints the current description (the textwrap module might be useful here).
     print(player.in_room.description)
 # * Waits for user input and decides what to do.
-    gowhere = input(
-        "Where do you want to go? (enter N, W, S, E or Q to quit)")
+    if (player.in_room.name == 'outside'):
+        entercave = input('Walk (N)orth to enter the cave...')
+        player = Player(player.name, room['foyer'])
+        print(f'you have entered the cave...{player.in_room.description}')
+    else:
+        print(f'Invalid direction')
+
+    if (player.in_room.name == room['foyer']):
+        print(
+            f'you have entered {player.in_room.name}...{player.in_room.description}')
+        gowhere = input('Walk (S)outh, (N)orth or (E)ast')
+
 
 # If the user enters a cardinal direction, attempt to move to the room there.
-    if gowhere == 'N' or 'n':
-        player.in_room.name = player.in_room.name.n_to
-    elif gowhere == 'W' or 'w':
-        player.in_room.name = player.in_room.name.room.w_to
-    elif gowhere == 'S' or 's':
-        player.in_room.name = player.in_room.name.room.s_to
-    elif gowhere == 'E' or 'e':
-        player.in_room.name = player.in_room.name.room.e_to
-        # If the user enters "q", quit the game.
-    elif gowhere == 'Q' or 'q':
-        print("See ya")
-        break
-        # Print an error message if the movement isn't allowed.
-    else:
-        print("The direction you chose does not exist")
