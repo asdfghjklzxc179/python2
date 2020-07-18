@@ -36,30 +36,34 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
+player = Player(input(" Enter your name "), room['outside'])
+print(f'Hello, {player.name}')
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player(input("Enter your name"), room['outside'])
 # Write a loop that:
+
 while(player.name):
     # * Prints the current room name
-    print(player.in_room)
+    print(f'{player.name} you are in {player.in_room.name}')
 # * Prints the current description (the textwrap module might be useful here).
-    print(room.description)
+    print(player.in_room.description)
 # * Waits for user input and decides what to do.
-    gowhere = input("Where do you want to go? (enter N, W, S, E or Q to quit)")
+    gowhere = input(
+        "Where do you want to go? (enter N, W, S, E or Q to quit)")
+
 # If the user enters a cardinal direction, attempt to move to the room there.
-    if gowhere == N:
-        return room.n_to
-    elif gowhere == W:
-        return room.w_to
-    elif gowhere == S:
-        return room.s_to
-    elif gowhere == E:
-        return room.e_to
-    # If the user enters "q", quit the game.
-    elif gowhere == Q:
+    if gowhere == 'N' or 'n':
+        player.in_room.name = player.in_room.name.n_to
+    elif gowhere == 'W' or 'w':
+        player.in_room.name = player.in_room.name.room.w_to
+    elif gowhere == 'S' or 's':
+        player.in_room.name = player.in_room.name.room.s_to
+    elif gowhere == 'E' or 'e':
+        player.in_room.name = player.in_room.name.room.e_to
+        # If the user enters "q", quit the game.
+    elif gowhere == 'Q' or 'q':
         print("See ya")
         break
-    # Print an error message if the movement isn't allowed.
+        # Print an error message if the movement isn't allowed.
     else:
         print("The direction you chose does not exist")
